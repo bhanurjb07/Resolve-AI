@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: Resolve-ai
+
+    environment:
+      POSTGRES_USER: bhanupratap
+      POSTGRES_PASSWORD: bhanu123
+      POSTGRES_DB: resolve_support
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bhanupratap -d resolve_support"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
